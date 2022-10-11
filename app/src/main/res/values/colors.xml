@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <color name="BG_900">#FFFFFF</color>
+    <color name="BG_100">#E0E0E0</color>
+
+
+    <color name="PRIMARY_700">#212121</color>
+    <color name="PRIMARY_500">#616161</color>
+
+    <color name="SEC_700">#FF642F</color>
+    <color name="SEC_500">#EC9039</color>
+
+    <color name="high">#b90007</color>
+    <color name="mid">#c8b900</color>
+    <color name="low">#0069c0</color>
+    <color name="no">#4b636e</color>
+
+
+</resources>
+
+    <!--          light    dark-->
+    <!--    high   #f44336  #b90007-->
+    <!--    medium #ffc107  #c8b900-->
+    <!--    low #2196f3  #0069c0-->
+    <!--    no #78909c  #4b636e-->
+
+<!--    light-->
+
+<!--    BG/900 #FFFFFF-->
+<!--    BG/400 #E0E0E0-->
+
+<!--    ON BG  #212121-->
+
+<!--    PRIMARY/700 #212121-->
+<!--    PRIMARY/500 #616161-->
+
+<!--    ON PRIMARY #FFFFFF-->
+
+<!--    SEC/700 #FF642F-->
+<!--    SEC/500 #EC9039-->
+
+<!--    ON SEC #000000-->

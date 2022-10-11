@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/add_btn_background.xml" value="0.151" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/bottom_nav_colors.xml" value="0.1195" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/bottom_nav_shape.xml" value="0.136" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/button_background.xml" value="0.178" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/completed.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/high.xml" value="0.115" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/low.xml" value="0.115" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/mid.xml" value="0.115" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/nav_btn_shape.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/no.xml" value="0.115" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/priority_dot.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/test.xml" value="0.1" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/text_background.xml" value="0.218" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/drawable/text_background2.xml" value="0.151" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/layout/add_task.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/layout/fragment_profile.xml" value="0.1539855072463768" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/layout/fragment_timer.xml" value="0.24895833333333334" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/layout/task_item.xml" value="0.2" />
+        <entry key="..\:/Project/AndroidStudioProject/projectTodo/app/src/main/res/menu/navigation_items.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

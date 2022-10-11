@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ProjectTodo" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/PRIMARY_500</item>
+        <item name="colorPrimaryVariant">@color/PRIMARY_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/SEC_500</item>
+        <item name="colorSecondaryVariant">@color/SEC_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.FloatingActionButton.Primary</item>
+    </style>
+</resources>
+
+
+<!--          light    dark-->
+<!--    high   #f44336  #b90007-->
+<!--    medium #ffc107  #c8b900-->
+<!--    low #2196f3  #0069c0-->
+<!--    no #78909c  #4b636e-->

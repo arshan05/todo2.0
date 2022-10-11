@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
+    android:backgroundTint="@color/PRIMARY_700"
+    android:id="@+id/card"
+    app:cardCornerRadius="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/inCheckbox"
+            android:buttonTint="@color/SEC_500"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hello"
+            android:id="@+id/inTaskText"
+            android:layout_toEndOf="@+id/inCheckbox"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            />
+        <View
+            android:id="@+id/inPriority"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/no" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
