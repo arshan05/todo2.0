@@ -2,6 +2,9 @@ package com.example.projecttodo
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.ListAdapter
 import com.google.android.material.snackbar.Snackbar
+import org.w3c.dom.Text
 import java.util.*
 
 class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
@@ -31,9 +35,14 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
     var dateString: String? = ""
 
 
-    private val taskViewModel: TaskViewModel by activityViewModels {
+    val taskViewModel: TaskViewModel by activityViewModels {
         TaskViewModelFactory((activity?.application as TaskApplication).database.taskDao())
     }
+
+    val tagsViewModel: TagsViewModel by activityViewModels {
+        TagsViewModelFactory((activity?.application as TaskApplication).database.tagsDao())
+    }
+
 
 
     override fun onCreateView(
@@ -54,6 +63,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.add_task)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             val closeBtn = dialog.findViewById(R.id.closeIn) as ImageButton
             val addBtnIn = dialog.findViewById<ImageButton>(R.id.addBtnIn)
             var priorityText = dialog.findViewById<TextView>(R.id.priorityText)
@@ -128,12 +138,24 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 
                 datePickerDialog.show()
             }
+            val tagSpinner = dialog.findViewById<Spinner>(R.id.tagIn)
+
+            lifecycle.coroutineScope.launch {
+                tagsViewModel.getTags().collect() {
+                    val spinnerAdapter = SpinnerAdapter(view.context, it)
+                    tagSpinner.adapter = spinnerAdapter
+                }
+            }
+
+
             closeBtn.setOnClickListener {
                 dialog.dismiss()
             }
             addBtnIn.setOnClickListener{
                 var taskIn = dialog.findViewById<EditText>(R.id.taskIn).text
                 var priorityIn:Int = -1
+
+
 
                 when(radioIn.checkedRadioButtonId){
                     R.id.highRadioBtn -> {
@@ -156,8 +178,17 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 
                 var dateIn = Date(year,month,day)
 
-                val input = Task(taskIn.toString(),priorityIn,dateIn,false,"work")
-                taskViewModel.insert(input)
+                if (taskIn.toString().isBlank()){
+                    Snackbar.make(view,"Add Valid Task",Snackbar.LENGTH_SHORT).show()
+                }
+                else{
+                    val tagInput = tagSpinner.selectedView.findViewById<TextView>(R.id.spinnerItem).text.toString()
+                    val input = Task(taskIn.toString(),priorityIn,dateIn,false,tagInput)
+                    taskViewModel.insert(input)
+//                    dialog.findViewById<TextView>(R.id.inTaskText).text = ""
+                    dialog.dismiss()
+                }
+
             }
             dialog.show()
         }

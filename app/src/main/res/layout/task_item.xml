@@ -2,39 +2,74 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="10dp"
     android:layout_marginTop="10dp"
     android:backgroundTint="@color/PRIMARY_700"
     android:id="@+id/card"
     app:cardCornerRadius="10dp">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <CheckBox
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:id="@+id/inCheckbox"
-            android:buttonTint="@color/SEC_500"
-            />
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/inCheckbox"
+                android:buttonTint="@color/SEC_500"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hello"
+                android:id="@+id/inTaskText"
+                android:layout_toEndOf="@+id/inCheckbox"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hello"
+                android:id="@+id/inTagText"
+                android:layout_toLeftOf="@+id/inPriority"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="italic"
+
+                />
+            <View
+                android:id="@+id/inPriority"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/no" />
+        </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hello"
-            android:id="@+id/inTaskText"
-            android:layout_toEndOf="@+id/inCheckbox"
-            android:layout_centerVertical="true"
+            android:id="@+id/inDate"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:text="22 Nov 2022"
+            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="16sp"
+            android:visibility="gone"
             />
-        <View
-            android:id="@+id/inPriority"
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/no" />
-    </RelativeLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -19,6 +19,9 @@ import android.widget.LinearLayout.HORIZONTAL
 import android.widget.LinearLayout.VERTICAL
 import androidx.core.animation.doOnEnd
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class TimerFragment : Fragment() {
     var start = 1500000L
@@ -68,7 +71,7 @@ class TimerFragment : Fragment() {
             val sec = EditText(view.context)
             sec.inputType = InputType.TYPE_CLASS_NUMBER
             sec.textSize = 36F
-            sec.filters = arrayOf(InputFilterMinMax(1,60))
+            sec.filters = arrayOf(InputFilterMinMax(0,59))
             sec.hint = "10"
 
             linearLayout.addView(min)
@@ -103,6 +106,8 @@ class TimerFragment : Fragment() {
             val left = ObjectAnimator.ofFloat(pauseBtn,View.TRANSLATION_X,-50f)
             left.duration = 100
             left.start()
+
+
 
 //            var asyncTask = AsyncTimerTask()
 //            asyncTask.execute("")
@@ -155,6 +160,8 @@ class TimerFragment : Fragment() {
 
         return view
     }
+
+
 
     private fun setTextTimer(){
         var minute = (timer / 1000) / 60

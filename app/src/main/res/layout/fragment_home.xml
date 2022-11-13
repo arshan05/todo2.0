@@ -8,7 +8,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/recyclerView"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,5 +21,5 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
         app:srcCompat="@drawable/add"
         android:foregroundTint="#616161"
-        />
+        android:contentDescription="fab" />
 </FrameLayout>

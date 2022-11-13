@@ -1,5 +1,6 @@
 package com.example.projecttodo
 
+import android.animation.LayoutTransition
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+
 
 class MyAdapter(val onItemLongPressed: OnItemLongPressed, val onItemChecked: OnItemChecked): ListAdapter<Task, TaskViewHolder>(DiffCallback){
 
@@ -58,12 +60,14 @@ private val DiffCallback = object : DiffUtil.ItemCallback<Task>() {
 class TaskViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
     var cardView = itemView.findViewById<CardView>(R.id.card)
     val taskView = itemView.findViewById<TextView>(R.id.inTaskText)
+    val tagView = itemView.findViewById<TextView>(R.id.inTagText)
     val checkBoxView = itemView.findViewById<CheckBox>(R.id.inCheckbox)
     val priorityView = itemView.findViewById<View>(R.id.inPriority)
 
 
     fun bind(viewModel: Task, clickListener: OnItemLongPressed, checkListener: OnItemChecked) {
         taskView.text = viewModel.task
+        tagView.text = "#${viewModel.tag}"
 
 
         if (viewModel.priority == 1)
@@ -84,10 +88,29 @@ class TaskViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         else{
             taskView.setTextColor(Color.WHITE)
         }
+//
+        val layoutTransition: LayoutTransition = cardView.layoutTransition
+        layoutTransition.disableTransitionType(LayoutTransition.CHANGING)
+        layoutTransition.disableTransitionType(LayoutTransition.CHANGE_APPEARING)
+        layoutTransition.disableTransitionType(LayoutTransition.APPEARING)
+        layoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING)
+        layoutTransition.disableTransitionType(LayoutTransition.CHANGE_DISAPPEARING)
 
         itemView.setOnLongClickListener{
             clickListener.onItemLongPressed(viewModel, position)
             return@setOnLongClickListener true
+        }
+
+        val dateDisplay = itemView.findViewById<TextView>(R.id.inDate)
+
+        itemView.setOnClickListener(){
+            if (dateDisplay.visibility == View.GONE){
+                dateDisplay.visibility = View.VISIBLE
+            }
+            else{
+                dateDisplay.visibility = View.GONE
+            }
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         }
         
         itemView.findViewById<CheckBox>(R.id.inCheckbox).setOnCheckedChangeListener { button, b ->

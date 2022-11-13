@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(), OnTagLongPressed {
     lateinit var adapter: ListAdapter<Tags, TagsViewHolder>
-    private val tagsViewModel: TagsViewModel by activityViewModels {
+    val tagsViewModel: TagsViewModel by activityViewModels {
         TagsViewModelFactory((activity?.application as TaskApplication).database.tagsDao())
     }
 
