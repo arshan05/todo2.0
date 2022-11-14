@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-class MyAdapter(val onItemLongPressed: OnItemLongPressed, val onItemChecked: OnItemChecked): ListAdapter<Task, TaskViewHolder>(DiffCallback){
+class MyAdapter(private val onItemLongPressed: OnItemLongPressed, private val onItemChecked: OnItemChecked): ListAdapter<Task, TaskViewHolder>(DiffCallback){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,7 +23,6 @@ class MyAdapter(val onItemLongPressed: OnItemLongPressed, val onItemChecked: OnI
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val viewModel = getItem(position)
-
         holder.checkBoxView.setOnCheckedChangeListener(null)
         holder.checkBoxView.isChecked = getItem(position).isCompleted!!
         holder.checkBoxView.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -70,16 +69,14 @@ class TaskViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         tagView.text = "#${viewModel.tag}"
 
 
-        if (viewModel.priority == 1)
-            priorityView.setBackgroundResource(R.drawable.high)
-        else if (viewModel.priority == 2)
-            priorityView.setBackgroundResource(R.drawable.mid)
-        else if (viewModel.priority == 3)
-            priorityView.setBackgroundResource(R.drawable.low)
-        else if (viewModel.priority == 4)
-            priorityView.setBackgroundResource(R.drawable.no)
-        else {
-            priorityView.setBackgroundResource(R.drawable.completed)
+        when (viewModel.priority) {
+            1 -> priorityView.setBackgroundResource(R.drawable.high)
+            2 -> priorityView.setBackgroundResource(R.drawable.mid)
+            3 -> priorityView.setBackgroundResource(R.drawable.low)
+            4 -> priorityView.setBackgroundResource(R.drawable.no)
+            else -> {
+                priorityView.setBackgroundResource(R.drawable.completed)
+            }
         }
 
         if (viewModel.isCompleted==true) {
@@ -103,14 +100,14 @@ class TaskViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
 
         val dateDisplay = itemView.findViewById<TextView>(R.id.inDate)
 
-        itemView.setOnClickListener(){
+        itemView.setOnClickListener {
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
             if (dateDisplay.visibility == View.GONE){
                 dateDisplay.visibility = View.VISIBLE
             }
-            else{
-                dateDisplay.visibility = View.GONE
+            else{dateDisplay.visibility = View.GONE
             }
-            layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+//            layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         }
         
         itemView.findViewById<CheckBox>(R.id.inCheckbox).setOnCheckedChangeListener { button, b ->

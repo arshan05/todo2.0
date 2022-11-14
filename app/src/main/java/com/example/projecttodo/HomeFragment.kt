@@ -221,7 +221,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
                 }
                 .show()
         }
-        adapter.notifyItemRemoved(position)
+//        adapter.notifyItemRemoved(position)
     }
 
 
