@@ -99,6 +99,9 @@ class TaskViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         }
 
         val dateDisplay = itemView.findViewById<TextView>(R.id.inDate)
+        if(viewModel.date != null){
+            dateDisplay.text = viewModel.date
+        }
 
         itemView.setOnClickListener {
             layoutTransition.enableTransitionType(LayoutTransition.CHANGING)

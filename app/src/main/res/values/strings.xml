@@ -2,4 +2,9 @@
     <string name="app_name">projectTodo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="high">high</string>
+    <string name="low">high</string>
+    <string name="medium">high</string>
+    <string name="none">high</string>
 </resources>

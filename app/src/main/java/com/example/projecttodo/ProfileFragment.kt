@@ -1,15 +1,20 @@
 package com.example.projecttodo
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.LinearLayout.VERTICAL
 import androidx.fragment.app.activityViewModels
@@ -48,6 +53,7 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
         recyclerView.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL,false)
         recyclerView.adapter = adapter
 
+
         lifecycle.coroutineScope.launch {
             tagsViewModel.getTags().collect() {
                 adapter.submitList(it)
@@ -55,28 +61,55 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
         }
 
         addTagBtn.setOnClickListener{
-            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(view.context)
-            builder.setTitle("Add Tag")
 
-            val linearLayout = LinearLayout(view.context)
-            linearLayout.setOrientation(VERTICAL)
+            var tagDialog = Dialog(view.context)
+            tagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            tagDialog.setCancelable(false)
+            tagDialog.setContentView(R.layout.add_tag)
+            tagDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+            val tagCloseTag = tagDialog.findViewById<ImageButton>(R.id.closeTagIn)
+            val tagInTag = tagDialog.findViewById<EditText>(R.id.tagInEt)
+            val addTag = tagDialog.findViewById<ImageButton>(R.id.addTagBtnIn)
 
-            val inputTag = EditText(view.context)
-            inputTag.inputType = InputType.TYPE_CLASS_TEXT
-            inputTag.hint = "work"
+            tagCloseTag.setOnClickListener {
+                tagDialog.dismiss()
+            }
 
-            linearLayout.addView(inputTag)
-            builder.setView(linearLayout)
+            addTag.setOnClickListener{
+                if (tagInTag.text.toString().isBlank()){
+                    Snackbar.make(view, "Enter Valid Tag", Snackbar.LENGTH_SHORT).show()
+                }
+                else{
+                    val inputTagText = tagInTag.text.toString()
+                    tagsViewModel.insert(Tags(inputTagText))
+                    tagDialog.dismiss()
+                }
+            }
 
-            builder.setPositiveButton("Submit", DialogInterface.OnClickListener{
-                    dialog, which ->
-                val inputTagText = inputTag.text.toString()
-                tagsViewModel.insert(Tags(inputTagText))
-            })
-            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+//            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(view.context)
+//            builder.setContentView(R.layout.add_tag)
+//            builder.setTitle("Add Tag")
 
-            builder.show()
+//            val linearLayout = LinearLayout(view.context)
+//            linearLayout.setOrientation(VERTICAL)
+//
+//
+//            val inputTag = EditText(view.context)
+//            inputTag.inputType = InputType.TYPE_CLASS_TEXT
+//            inputTag.hint = "work"
+//
+//            linearLayout.addView(inputTag)
+//            builder.setView(linearLayout)
+//
+//            builder.setPositiveButton("Submit", DialogInterface.OnClickListener{
+//                    dialog, which ->
+//                val inputTagText = inputTag.text.toString()
+//                tagsViewModel.insert(Tags(inputTagText))
+//            })
+//            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+            tagDialog.show()
 
 
 

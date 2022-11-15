@@ -1,31 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".HomeFragment">
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/chipRecyclerView"-->
+<!--        />-->
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/scrollView"
+        >
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:singleLine="true"
+            app:singleSelection="true"
+            android:id="@+id/chip_group"
+            app:selectionRequired="true"
+
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            >
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="all"
+                android:checkable="true"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                app:checkedIconTint="@color/SEC_700"
+                android:layout_marginLeft="10dp"
+                android:checked="true"
+                android:id="@+id/allChip"
+                />
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="today"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:checkable="true"
+                app:checkedIconTint="@color/SEC_700"
+                android:id="@+id/todayChip"
+                />
+
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chipRecyclerView"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_below="@+id/scrollView"
         android:id="@+id/recyclerView"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="@color/SEC_700"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
         app:srcCompat="@drawable/add"
         android:foregroundTint="#616161"
         android:contentDescription="fab" />
-</FrameLayout>
+</RelativeLayout>

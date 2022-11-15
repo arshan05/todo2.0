@@ -9,7 +9,7 @@ import java.util.*
 data class Task(
     val task: String?,
     var priority: Int?,
-    var date: Date?,
+    var date: String?,
     var isCompleted:Boolean?,
     var tag: String?,
     @PrimaryKey(autoGenerate = false) val id: Int? = null

@@ -3,6 +3,7 @@ package com.example.projecttodo
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 @Dao
 interface TaskDao {
@@ -20,4 +21,11 @@ interface TaskDao {
 
     @Query("DELETE FROM task_table")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM task_table where tag IN(:tagIn) ORDER BY priority ASC")
+    fun getParticularTag(tagIn:String) : Flow<List<Task>>
+
+    @Query("SELECT * FROM task_table where date IN(:dateIn) ORDER BY priority ASC")
+    fun getTodayTask(dateIn: String) : Flow<List<Task>>
+
 }

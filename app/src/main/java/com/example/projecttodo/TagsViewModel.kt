@@ -14,6 +14,7 @@ class TagsViewModel(private val tagsDao: TagsDao):ViewModel() {
     fun delete(tag: Tags) = viewModelScope.launch{
         tagsDao.delete(tag)
     }
+
 }
 
 class TagsViewModelFactory(private val tagsDao: TagsDao) : ViewModelProvider.Factory{

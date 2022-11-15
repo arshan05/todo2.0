@@ -17,10 +17,14 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
         taskDao.delete(task)
     }
 
+    fun getParticularTag(tagIn:String) = taskDao.getParticularTag(tagIn)
+
+    fun getTodayTask(dateIn:String) = taskDao.getTodayTask(dateIn)
+
     fun updateItem(
         task: String?,
         priority: Int?,
-        date: Date?,
+        date: String?,
         isCompleted:Boolean?,
         tag: String?,
         id: Int?
@@ -30,7 +34,7 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
     }
 
     private fun getUpdatedItemEntry(
-        task: String?, priority: Int?, date: Date?, iscompleted: Boolean?,
+        task: String?, priority: Int?, date: String?, iscompleted: Boolean?,
         tag: String?, id: Int?): Task {
         return Task(task, priority,date, iscompleted,tag,id)
     }
