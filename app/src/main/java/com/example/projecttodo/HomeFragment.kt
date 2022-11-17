@@ -3,22 +3,15 @@ package com.example.projecttodo
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.Icon
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +24,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
@@ -123,11 +115,11 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
                 }
             }
             else if(checkedChip.text == "today"){
-                var dateIn = LocalDate.now().dayOfMonth
-                var monthIn = LocalDate.now().month.value
-                var yearIn = LocalDate.now().year
+                val dateIn = LocalDate.now().dayOfMonth
+                val monthIn = LocalDate.now().month.value
+                val yearIn = LocalDate.now().year
 
-                var dateTemp = String.format("%s %d, %d",monthName[monthIn-1], dateIn, yearIn)
+                val dateTemp = String.format("%s %d, %d",monthName[monthIn-1], dateIn, yearIn)
                 Log.d("date today", dateTemp)
                 lifecycle.coroutineScope.launch {
                     taskViewModel.getTodayTask(dateTemp).collect() {
@@ -202,14 +194,9 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 
 
                 datePickerDialog =
-                    DatePickerDialog(view.context, object : DatePickerDialog.OnDateSetListener {
-                        override fun onDateSet(
-                            view: DatePicker?,
-                            year: Int,
-                            month: Int,
-                            dayOfMonth: Int
-                        ) {
-                        dateString = String.format("%s %d, %d",monthName[month], dayOfMonth, year)
+                    DatePickerDialog(view.context,
+                        { view, year, month, dayOfMonth ->
+                            dateString = String.format("%s %d, %d",monthName[month], dayOfMonth, year)
                             if (dayOfMonth == day) {
                                 datePick.setText("today")
                             } else {
@@ -223,9 +210,8 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
                                     )
                                 )
                             }
-                        }
-                    }, year, month, day)
-//                datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+                        }, year, month, day)
+                datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
                 datePickerDialog.show()
             }
             val tagSpinner = dialog.findViewById<Spinner>(R.id.tagIn)
@@ -356,6 +342,7 @@ private fun ChipGroup.addChip(ctx:Context, tag: String?) {
         isClickable = true
         textSize = 18F
         setTextColor(Color.BLACK)
+        checkedIcon = resources.getDrawable(R.drawable.dot)
 //        checkedIconTint = ColorStateList(R.color.state_color,R.color.SEC_700)
 //        setCheckedIconTintResource(R.color.SEC_500)
         isCheckedIconVisible = true

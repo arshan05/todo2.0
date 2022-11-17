@@ -17,12 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:scrollbars="none"
         android:id="@+id/scrollView"
         >
         <com.google.android.material.chip.ChipGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             app:singleLine="true"
             app:singleSelection="true"
             android:id="@+id/chip_group"
@@ -37,8 +37,10 @@
                 android:checkable="true"
                 android:textSize="18dp"
                 android:textColor="@color/black"
+                app:checkedIcon="@drawable/dot"
                 app:checkedIconTint="@color/SEC_700"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:checked="true"
                 android:id="@+id/allChip"
                 />
@@ -47,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="today"
                 android:textSize="18dp"
+                app:checkedIcon="@drawable/dot"
                 android:textColor="@color/black"
                 android:checkable="true"
                 app:checkedIconTint="@color/SEC_700"

@@ -32,6 +32,8 @@
                 app:tint="@color/black" />
 
 
+
+
         </FrameLayout>
 
 
@@ -50,19 +52,23 @@
             android:layout_marginTop="10dp"
             />
 
-
         <ImageButton
             android:id="@+id/addTagBtnIn"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tagInEt"
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="10dp"
+            app:tint="@color/SEC_700"
             android:padding="10dp"
-            android:background="@drawable/add_btn_background"
-            android:src="@drawable/add"
-            app:tint="@color/black"
+            android:textSize="24sp"
+            android:background="@drawable/text_background2"
+            android:text="add"
+            android:src="@drawable/ic_baseline_add_24"
             />
+
+
+
 
 
     </RelativeLayout>

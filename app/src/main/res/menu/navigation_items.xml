@@ -10,7 +10,8 @@
         android:icon="@drawable/home"
         />
     <item android:id="@+id/profile"
-        android:title="profile"
-        android:icon="@drawable/user"
+        android:title="tags"
+        android:icon="@drawable/tag2"
+        android:iconTint="@color/black"
         />
 </menu>

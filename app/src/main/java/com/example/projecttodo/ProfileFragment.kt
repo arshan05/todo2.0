@@ -1,5 +1,6 @@
 package com.example.projecttodo
 
+import android.animation.LayoutTransition
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
@@ -17,11 +18,14 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.LinearLayout.VERTICAL
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -46,12 +50,25 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val addTagBtn = view.findViewById<Button>(R.id.addTagBtn)
+        val addTagBtn = view.findViewById<ImageButton>(R.id.addTagBtn)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.tagsRecyclerView)
         adapter = TagsAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL,false)
         recyclerView.adapter = adapter
+
+        val card = view.findViewById<CardView>(R.id.cv)
+        val layoutTransition: LayoutTransition = card.layoutTransition
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+        val tagDisplay = view.findViewById<Chip>(R.id.tagsDisplayTitle)
+        val textCaution = view.findViewById<TextView>(R.id.caution)
+        tagDisplay.setOnClickListener{
+            recyclerView.visibility = if (recyclerView.visibility == View.VISIBLE) View
+                .GONE else View.VISIBLE
+
+            textCaution.visibility = if (textCaution.visibility == View.VISIBLE) View
+                .GONE else View.VISIBLE
+        }
 
 
         lifecycle.coroutineScope.launch {
