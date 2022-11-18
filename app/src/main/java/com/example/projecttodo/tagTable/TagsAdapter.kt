@@ -1,4 +1,4 @@
-package com.example.projecttodo
+package com.example.projecttodo.tagTable
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecttodo.R
 
-class TagsAdapter(val onTagLongPressed: OnTagLongPressed):ListAdapter<Tags, TagsViewHolder>(DiffCallback) {
+class TagsAdapter(val onTagLongPressed: OnTagLongPressed):ListAdapter<Tags, TagsViewHolder>(
+    DiffCallback
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.tags_item, parent,false)
         return TagsViewHolder(view)

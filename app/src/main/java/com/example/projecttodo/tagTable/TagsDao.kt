@@ -1,4 +1,4 @@
-package com.example.projecttodo
+package com.example.projecttodo.tagTable
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

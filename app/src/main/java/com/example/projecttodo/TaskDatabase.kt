@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.projecttodo.tagTable.Tags
+import com.example.projecttodo.tagTable.TagsDao
+import com.example.projecttodo.taskTable.Task
+import com.example.projecttodo.taskTable.TaskDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -50,10 +54,10 @@ abstract class TaskDatabase : RoomDatabase() {
                 }
             }
 
-            suspend fun populateDatabase(taskDao: TaskDao,tagsDao: TagsDao){
+            suspend fun populateDatabase(taskDao: TaskDao, tagsDao: TagsDao){
 
                 taskDao.deleteAll()
-                taskDao.deleteAll()
+                tagsDao.deleteAll()
                 tagsDao.insert(Tags("work"))
                 tagsDao.insert(Tags("personal"))
             }

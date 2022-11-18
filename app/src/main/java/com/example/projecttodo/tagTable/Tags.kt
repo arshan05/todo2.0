@@ -1,4 +1,4 @@
-package com.example.projecttodo
+package com.example.projecttodo.tagTable
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

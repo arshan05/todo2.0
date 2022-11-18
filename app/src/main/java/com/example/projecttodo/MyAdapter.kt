@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecttodo.taskTable.Task
 
 
 class MyAdapter(private val onItemLongPressed: OnItemLongPressed, private val onItemChecked: OnItemChecked): ListAdapter<Task, TaskViewHolder>(DiffCallback){
@@ -123,7 +124,7 @@ class TaskViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
 }
 
 interface OnItemChecked{
-    fun onItemChecked(viewModel:Task, position: Int)
+    fun onItemChecked(viewModel: Task, position: Int)
 }
 
 interface OnItemLongPressed{

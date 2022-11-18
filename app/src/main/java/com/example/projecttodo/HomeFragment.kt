@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -22,6 +23,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.ListAdapter
+import com.example.projecttodo.tagTable.TagsApplication
+import com.example.projecttodo.tagTable.TagsViewModel
+import com.example.projecttodo.tagTable.TagsViewModelFactory
+import com.example.projecttodo.taskTable.Task
+import com.example.projecttodo.taskTable.TaskApplication
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
@@ -44,12 +50,16 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
     var dateString: String? = ""
 
 
-    val taskViewModel: TaskViewModel by activityViewModels {
-        TaskViewModelFactory((activity?.application as TaskApplication).database.taskDao())
+//    val taskViewModel: TaskViewModel by activityViewModels {
+//        TaskViewModelFactory((activity?.application as TaskApplication).database.taskDao())
+//    }
+
+    private val taskViewModel: TaskViewModel by viewModels {
+        TaskViewModelFactory((activity?.application as TaskApplication).repository)
     }
 
-    val tagsViewModel: TagsViewModel by activityViewModels {
-        TagsViewModelFactory((activity?.application as TaskApplication).database.tagsDao())
+    private val tagsViewModel: TagsViewModel by activityViewModels {
+        TagsViewModelFactory((activity?.application as TaskApplication).tagRepository)
     }
 
 
@@ -74,7 +84,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 //        chipRecyclerView.adapter = chipAdapter
 
         lifecycle.coroutineScope.launch {
-            tagsViewModel.getTags().collect {
+            tagsViewModel.allTags.collect {
 //                chipData.addAll(it)
                 it.forEach { eachTag ->
                     chipGroup.addChip(view.context,eachTag.tag)
@@ -91,17 +101,16 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
         recyclerView.layoutManager = LinearLayoutManager(view.context, RecyclerView.VERTICAL,false)
         recyclerView.adapter = adapter
 
-
-        chipGroup.check(chipGroup.checkedChipId)
-
         val checked = chipGroup.findViewById<Chip>(chipGroup.checkedChipId)
         if (checked.text == "all"){
             lifecycle.coroutineScope.launch {
-                taskViewModel.allTasks().collect {
+                taskViewModel.allTask.collect {
                     adapter.submitList(it)
                 }
             }
         }
+
+        chipGroup.isSelectionRequired = true
 
         chipGroup.setOnCheckedStateChangeListener{ chipGroupView, checkedId ->
             val checkedChip = chipGroupView.findViewById<Chip>(checkedId[0])
@@ -110,7 +119,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
             lifecycle.coroutineScope.launch{
                 when (checkedChip.text) {
                     "all" -> {
-                        taskViewModel.allTasks().collect {
+                        taskViewModel.allTask.collect {
                             adapter.submitList(it)
                         }
                     }
@@ -246,7 +255,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
             val tagSpinner = dialog.findViewById<Spinner>(R.id.tagIn)
 
             lifecycle.coroutineScope.launch {
-                tagsViewModel.getTags().collect {
+                tagsViewModel.allTags.collect {
                     val spinnerAdapter = MySpinnerAdapter(view.context, it)
                     tagSpinner.adapter = spinnerAdapter
                 }
@@ -339,7 +348,8 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
             if(x!=null)
                 x += 5
             viewModel.priority = x
-            taskViewModel.updateItem(viewModel.task, viewModel.priority, viewModel.date, viewModel.isCompleted,viewModel.tag,viewModel.id)
+            taskViewModel.update(viewModel)
+//            taskViewModel.updateItem(viewModel.task, viewModel.priority, viewModel.date, viewModel.isCompleted,viewModel.tag,viewModel.id)
         }
         else{
 //            itemView.findViewById<CheckBox>(R.id.inCheckbox).isChecked = true
@@ -348,7 +358,8 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
                 x -= 5
             viewModel.isCompleted = false
             viewModel.priority = x
-            taskViewModel.updateItem(viewModel.task, viewModel.priority, viewModel.date, viewModel.isCompleted,viewModel.tag,viewModel.id)
+            taskViewModel.update(viewModel)
+//            taskViewModel.updateItem(viewModel.task, viewModel.priority, viewModel.date, viewModel.isCompleted,viewModel.tag,viewModel.id)
         }
 
         adapter.notifyItemChanged(position)

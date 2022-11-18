@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:id="@+id/inCheckbox"
-                android:buttonTint="@color/SEC_500"
+                android:buttonTint="@color/SEC_700"
                 />
             <TextView
                 android:layout_width="wrap_content"

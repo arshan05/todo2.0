@@ -1,27 +1,32 @@
-package com.example.projecttodo
+package com.example.projecttodo.tagTable
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.projecttodo.taskTable.TaskRepository
 import kotlinx.coroutines.launch
 
-class TagsViewModel(private val tagsDao: TagsDao):ViewModel() {
-    fun getTags() = tagsDao.getTags()
+class TagsViewModel(private val repository: TagsRepository):ViewModel() {
+    val allTags = repository.allTags
 
     fun insert(tag: Tags) = viewModelScope.launch{
-        tagsDao.insert(tag)
+        repository.insert(tag)
     }
     fun delete(tag: Tags) = viewModelScope.launch{
-        tagsDao.delete(tag)
+        repository.delete(tag)
+    }
+
+    fun deleteAll() = viewModelScope.launch {
+        repository.deleteAll()
     }
 
 }
 
-class TagsViewModelFactory(private val tagsDao: TagsDao) : ViewModelProvider.Factory{
+class TagsViewModelFactory(private val repository: TagsRepository) : ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TagsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return TagsViewModel(tagsDao) as T
+            return TagsViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

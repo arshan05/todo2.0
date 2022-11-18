@@ -1,6 +1,7 @@
-package com.example.projecttodo
+package com.example.projecttodo.taskTable
 
 import androidx.room.*
+import com.example.projecttodo.taskTable.Task
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
@@ -16,7 +17,7 @@ interface TaskDao {
     suspend fun delete(task: Task)
 
     @Update
-    suspend fun update(task:Task)
+    suspend fun update(task: Task)
 
     @Query("DELETE FROM task_table")
     suspend fun deleteAll()

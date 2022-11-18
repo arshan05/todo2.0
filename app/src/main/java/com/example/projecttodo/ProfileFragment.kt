@@ -19,6 +19,8 @@ import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecttodo.tagTable.*
+import com.example.projecttodo.taskTable.TaskApplication
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -26,7 +28,7 @@ import kotlinx.coroutines.launch
 class ProfileFragment : Fragment(), OnTagLongPressed {
     lateinit var adapter: ListAdapter<Tags, TagsViewHolder>
     val tagsViewModel: TagsViewModel by activityViewModels {
-        TagsViewModelFactory((activity?.application as TaskApplication).database.tagsDao())
+        TagsViewModelFactory((activity?.application as TaskApplication).tagRepository)
     }
 
     override fun onCreateView(
@@ -61,7 +63,7 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
 
 
         lifecycle.coroutineScope.launch {
-            tagsViewModel.getTags().collect {
+            tagsViewModel.allTags.collect {
                 adapter.submitList(it)
             }
         }

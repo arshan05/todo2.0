@@ -1,6 +1,8 @@
-package com.example.projecttodo
+package com.example.projecttodo.taskTable
 
 import androidx.annotation.WorkerThread
+import com.example.projecttodo.taskTable.Task
+import com.example.projecttodo.taskTable.TaskDao
 import kotlinx.coroutines.flow.Flow
 
 class TaskRepository(private val taskDao: TaskDao) {
@@ -16,7 +18,7 @@ class TaskRepository(private val taskDao: TaskDao) {
     suspend fun insert(task: Task){
         taskDao.insert(task)
     }
-    suspend fun delete(task:Task){
+    suspend fun delete(task: Task){
         taskDao.delete(task)
     }
     suspend fun update(task: Task){
