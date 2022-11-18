@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,13 +53,11 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_home,container,false)
-        return view
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +65,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 
 //        val chipRecyclerView = view.findViewById<RecyclerView>(R.id.chipRecyclerView)
 //        chipRecyclerView.layoutManager = LinearLayoutManager(view.context,LinearLayoutManager.HORIZONTAL, false)
-        var chipGroup = view.findViewById<ChipGroup>(R.id.chip_group)
+        val chipGroup = view.findViewById<ChipGroup>(R.id.chip_group)
 //        var chipData:MutableList<Tags> = mutableListOf()
 //        chipData.add(Tags("all"))
 //        chipData.add(Tags("today"))
@@ -75,10 +74,10 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 //        chipRecyclerView.adapter = chipAdapter
 
         lifecycle.coroutineScope.launch {
-            tagsViewModel.getTags().collect() {
+            tagsViewModel.getTags().collect {
 //                chipData.addAll(it)
-                it.forEach(){
-                    chipGroup.addChip(view.context,it.tag)
+                it.forEach { eachTag ->
+                    chipGroup.addChip(view.context,eachTag.tag)
                 }
 //                chipAdapter.submitList(chipData)
             }
@@ -98,43 +97,80 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
         val checked = chipGroup.findViewById<Chip>(chipGroup.checkedChipId)
         if (checked.text == "all"){
             lifecycle.coroutineScope.launch {
-                taskViewModel.allTasks().collect() {
+                taskViewModel.allTasks().collect {
                     adapter.submitList(it)
                 }
             }
         }
 
-        chipGroup.setOnCheckedStateChangeListener{ chipGroup, checkedId ->
-            var checkedChip = chipGroup.findViewById<Chip>(checkedId.get(0))
+        chipGroup.setOnCheckedStateChangeListener{ chipGroupView, checkedId ->
+            val checkedChip = chipGroupView.findViewById<Chip>(checkedId[0])
 
-            if (checkedChip.text == "all"){
-                lifecycle.coroutineScope.launch {
-                    taskViewModel.allTasks().collect() {
-                        adapter.submitList(it)
-                    }
-                }
-            }
-            else if(checkedChip.text == "today"){
-                val dateIn = LocalDate.now().dayOfMonth
-                val monthIn = LocalDate.now().month.value
-                val yearIn = LocalDate.now().year
 
-                val dateTemp = String.format("%s %d, %d",monthName[monthIn-1], dateIn, yearIn)
-                Log.d("date today", dateTemp)
-                lifecycle.coroutineScope.launch {
-                    taskViewModel.getTodayTask(dateTemp).collect() {
-                        adapter.submitList(it)
+            lifecycle.coroutineScope.launch{
+                when (checkedChip.text) {
+                    "all" -> {
+                        taskViewModel.allTasks().collect {
+                            adapter.submitList(it)
+                        }
+                    }
+                    "today" -> {
+                        val dateIn = LocalDate.now().dayOfMonth
+                        val monthIn = LocalDate.now().month.value
+                        val yearIn = LocalDate.now().year
+
+                        val dateTemp = String.format("%s %d, %d",monthName[monthIn-1], dateIn, yearIn)
+                        Log.d("date today", dateTemp)
+
+                        taskViewModel.getTodayTask(dateTemp).collect {
+                            adapter.submitList(it)
+                        }
+                    }
+                    else -> {
+                        val checkedTagString = checkedChip.text.toString()
+                        taskViewModel.getParticularTag(checkedTagString).collect {
+                            adapter.submitList(it)
+                        }
                     }
                 }
             }
-            else{
-                var checkedTagString = checkedChip.text.toString()
-                lifecycle.coroutineScope.launch {
-                    taskViewModel.getParticularTag(checkedTagString).collect() {
-                        adapter.submitList(it)
-                    }
-                }
-            }
+
+//            when (checkedChip.text) {
+//                "all" -> {
+//                    var tempAll = listOf<Task>()
+//                    lifecycle.coroutineScope.launch {
+//                        taskViewModel.allTasks().collect {
+//                            tempAll = it
+//                        }
+//                        adapter.submitList(tempAll)
+//                    }
+//                }
+//                "today" -> {
+//                    val dateIn = LocalDate.now().dayOfMonth
+//                    val monthIn = LocalDate.now().month.value
+//                    val yearIn = LocalDate.now().year
+//
+//                    val dateTemp = String.format("%s %d, %d",monthName[monthIn-1], dateIn, yearIn)
+//                    Log.d("date today", dateTemp)
+//                    var tempToday = listOf<Task>()
+//                    lifecycle.coroutineScope.launch {
+//                        taskViewModel.getTodayTask(dateTemp).collect {
+//                            tempToday = it
+//                        }
+//                        adapter.submitList(tempToday)
+//                    }
+//                }
+//                else -> {
+//                    val checkedTagString = checkedChip.text.toString()
+//                    var tempElse = listOf<Task>()
+//                    lifecycle.coroutineScope.launch {
+//                        taskViewModel.getParticularTag(checkedTagString).collect {
+//                            tempElse = it
+//                        }
+//                        adapter.submitList(tempElse)
+//                    }
+//                }
+//            }
 
 
         }
@@ -184,13 +220,13 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
             year = calendar.get(Calendar.YEAR)
             dateString = String.format("%s %d, %d",monthName[month], day, year)
 
-            datePick.text = "today"
+            datePick.text = getString(R.string.today)
 
-            datePick.setOnClickListener() {
-                val calendar: Calendar = Calendar.getInstance()
-                day = calendar.get(Calendar.DAY_OF_MONTH)
-                month = calendar.get(Calendar.MONTH)
-                year = calendar.get(Calendar.YEAR)
+            datePick.setOnClickListener {
+                val calendarInstance: Calendar = Calendar.getInstance()
+                day = calendarInstance.get(Calendar.DAY_OF_MONTH)
+                month = calendarInstance.get(Calendar.MONTH)
+                year = calendarInstance.get(Calendar.YEAR)
 
 
                 datePickerDialog =
@@ -198,17 +234,10 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
                         { view, year, month, dayOfMonth ->
                             dateString = String.format("%s %d, %d",monthName[month], dayOfMonth, year)
                             if (dayOfMonth == day) {
-                                datePick.setText("today")
+                                datePick.setText(R.string.today)
                             } else {
                                 dateString = String.format("%s %d, %d",monthName[month], dayOfMonth, year)
-                                datePick.setText(
-                                    String.format(
-                                        "%s %d, %d",
-                                        monthName[month],
-                                        dayOfMonth,
-                                        year
-                                    )
-                                )
+                                datePick.text = String.format("%s %d, %d", monthName[month], dayOfMonth, year)
                             }
                         }, year, month, day)
                 datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
@@ -217,8 +246,8 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
             val tagSpinner = dialog.findViewById<Spinner>(R.id.tagIn)
 
             lifecycle.coroutineScope.launch {
-                tagsViewModel.getTags().collect() {
-                    val spinnerAdapter = SpinnerAdapter(view.context, it)
+                tagsViewModel.getTags().collect {
+                    val spinnerAdapter = MySpinnerAdapter(view.context, it)
                     tagSpinner.adapter = spinnerAdapter
                 }
             }
@@ -228,7 +257,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
                 dialog.dismiss()
             }
             addBtnIn.setOnClickListener{
-                var taskIn = dialog.findViewById<EditText>(R.id.taskIn).text
+                val taskIn = dialog.findViewById<EditText>(R.id.taskIn).text
                 var priorityIn:Int = -1
 
 
@@ -342,7 +371,7 @@ private fun ChipGroup.addChip(ctx:Context, tag: String?) {
         isClickable = true
         textSize = 18F
         setTextColor(Color.BLACK)
-        checkedIcon = resources.getDrawable(R.drawable.dot)
+        checkedIcon = ResourcesCompat.getDrawable(resources,R.drawable.dot,null)
 //        checkedIconTint = ColorStateList(R.color.state_color,R.color.SEC_700)
 //        setCheckedIconTintResource(R.color.SEC_500)
         isCheckedIconVisible = true

@@ -1,23 +1,17 @@
 package com.example.projecttodo
 
 import android.animation.LayoutTransition
-import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
@@ -33,11 +27,6 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
     lateinit var adapter: ListAdapter<Tags, TagsViewHolder>
     val tagsViewModel: TagsViewModel by activityViewModels {
         TagsViewModelFactory((activity?.application as TaskApplication).database.tagsDao())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -72,14 +61,14 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
 
 
         lifecycle.coroutineScope.launch {
-            tagsViewModel.getTags().collect() {
+            tagsViewModel.getTags().collect {
                 adapter.submitList(it)
             }
         }
 
         addTagBtn.setOnClickListener{
 
-            var tagDialog = Dialog(view.context)
+            val tagDialog = Dialog(view.context)
             tagDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             tagDialog.setCancelable(false)
             tagDialog.setContentView(R.layout.add_tag)
@@ -142,9 +131,8 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
     }
 
     override fun onTagLongPressed(viewModel: Tags, position: Int) {
-        val tagToDelete = viewModel
-        tagsViewModel.delete(tagToDelete)
-        var curView = view
+        tagsViewModel.delete(viewModel)
+        val curView = view
         if (curView != null) {
             Snackbar.make(curView, "Deleted", Snackbar.LENGTH_LONG)
                 .setAction("undo"){

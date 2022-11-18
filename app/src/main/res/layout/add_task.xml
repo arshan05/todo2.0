@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
     android:layout_width="350dp"
-    android:layout_height="350dp"
+    android:layout_height="wrap_content"
     android:backgroundTint="@color/BG_100"
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
@@ -14,93 +14,128 @@
         android:layout_height="wrap_content"
         >
 
-        <FrameLayout
-            android:id="@+id/topBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+<!--        <ImageButton-->
+<!--            android:id="@+id/closeIn"-->
+<!--            android:layout_gravity="start|center_vertical"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:background="@drawable/add_btn_background"-->
+<!--            android:src="@drawable/close"-->
+<!--            app:tint="@color/black" />-->
+
+<!--            <TextView-->
+<!--                android:layout_gravity="end|center_vertical"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:id="@+id/priorityText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:background="@drawable/text_background2"-->
+<!--                android:paddingHorizontal="10dp"-->
+<!--                android:paddingVertical="5dp"-->
+<!--                android:text="@string/none"-->
+<!--                android:textColor="@color/BG_900"-->
+<!--                android:textSize="18sp" />-->
 
 
-            <ImageButton
-                android:id="@+id/closeIn"
-                android:layout_gravity="left|center_vertical"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/add_btn_background"
-                android:src="@drawable/close"
-                app:tint="@color/black" />
+       <RelativeLayout
+           android:id="@+id/topBtn"
+           android:padding="0dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <ImageButton
+               android:layout_alignParentStart="true"
+               android:id="@+id/closeIn"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_margin="10dp"
+               android:background="@drawable/add_btn_background"
+               android:src="@drawable/close"
+               app:tint="@color/black" />
+           <RelativeLayout
+               android:layout_alignParentEnd="true"
+               android:layout_margin="10dp"
+               android:layout_width="250dp"
+               android:layout_height="40dp"
+               android:background="@drawable/text_background2"
+               android:orientation="horizontal"
+               android:id="@+id/radioBtnAndText"
+               android:layout_centerHorizontal="true"
+               >
 
-            <TextView
-                android:layout_gravity="right|center_vertical"
-                android:gravity="center_horizontal"
-                android:id="@+id/priorityText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/text_background2"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:text="none"
-                android:textColor="@color/BG_900"
-                android:textSize="18sp" />
-        </FrameLayout>
+               <TextView
+                   android:layout_alignParentStart="true"
+                   android:id="@+id/priorityText"
+                   android:layout_width="100dp"
+                   android:layout_height="match_parent"
+                   android:background="@drawable/text_background"
+                   android:paddingHorizontal="10dp"
+                   android:paddingVertical="5dp"
+                   android:text="@string/none"
+                   android:textColor="@color/BG_900"
+                   android:gravity="center"
+                   android:textSize="18sp" />
 
-        <RadioGroup
-            android:id="@+id/radioBtnGroup"
-            android:layout_below="@+id/topBtn"
-            android:layout_alignParentEnd="true"
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            <RadioButton
-                android:padding="0dp"
-                android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:buttonTint="@color/high"
-                android:id="@+id/highRadioBtn"
-                />
-            <RadioButton
-                android:gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:buttonTint="@color/mid"
-                android:id="@+id/mediumRadioBtn"
-                />
-            <RadioButton
-                android:gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:buttonTint="@color/low"
-                android:id="@+id/lowRadioBtn"
-                />
-            <RadioButton
-                android:gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:buttonTint="@color/no"
-                android:id="@+id/noRadioBtn"
-                android:checked="true"
-                />
-        </RadioGroup>
+               <RadioGroup
+                   android:id="@+id/radioBtnGroup"
+                   android:layout_alignParentEnd="true"
+                   android:layout_centerVertical="true"
+                   android:layout_width="wrap_content"
+                   android:layout_height="30dp"
+                   android:layout_marginEnd="10dp"
+                   android:orientation="horizontal"
+                   >
+                   <RadioButton
+                       android:padding="0dp"
+                       android:layout_gravity="center"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:buttonTint="@color/high"
+                       android:id="@+id/highRadioBtn"
+                       />
+                   <RadioButton
+                       android:gravity="center"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:buttonTint="@color/mid"
+                       android:id="@+id/mediumRadioBtn"
+                       />
+                   <RadioButton
+                       android:gravity="center"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:buttonTint="@color/low"
+                       android:id="@+id/lowRadioBtn"
+                       />
+                   <RadioButton
+                       android:gravity="center"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:buttonTint="@color/no"
+                       android:id="@+id/noRadioBtn"
+                       android:checked="true"
+                       />
+               </RadioGroup>
+
+           </RelativeLayout>
+       </RelativeLayout>
+
+
 
         <EditText
             android:id="@+id/taskIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/BG_900"
-            android:layout_below="@+id/radioBtnGroup"
-            android:hint="meditate"
+            android:layout_below="@+id/topBtn"
+            android:inputType="text"
+            android:hint="@string/add_task_hint"
             android:textColorHint="@color/PRIMARY_500"
             android:textSize="24sp"
             android:padding="10dp"
             android:background="@drawable/text_background2"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp"
             />
 
 <!--        <ImageButton-->
@@ -158,7 +193,7 @@
             android:padding="10dp"
             android:textSize="24sp"
             android:background="@drawable/text_background2"
-            android:text="add"
+            android:text="@string/add"
             android:src="@drawable/ic_baseline_add_24"
             />
 

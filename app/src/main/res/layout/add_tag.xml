@@ -23,7 +23,8 @@
 
             <ImageButton
                 android:id="@+id/closeTagIn"
-                android:layout_gravity="left|center_vertical"
+                android:layout_gravity="start|center_vertical"
+                android:contentDescription= "@string/close_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -38,12 +39,14 @@
 
 
         <EditText
+            android:inputType="text"
+            android:autofillHints="@string/hobby"
             android:id="@+id/tagInEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/BG_900"
             android:layout_below="@+id/topBtn"
-            android:hint="hobby"
+            android:hint="@string/hobby"
             android:textColorHint="@color/PRIMARY_500"
             android:textSize="24sp"
             android:padding="10dp"
@@ -63,7 +66,8 @@
             android:padding="10dp"
             android:textSize="24sp"
             android:background="@drawable/text_background2"
-            android:text="add"
+            android:text="@string/add"
+            android:contentDescription="@string/add_button"
             android:src="@drawable/ic_baseline_add_24"
             />
 

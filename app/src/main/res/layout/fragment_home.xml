@@ -33,28 +33,24 @@
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="all"
+                android:text="@string/all"
                 android:checkable="true"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 app:checkedIcon="@drawable/dot"
                 app:checkedIconTint="@color/SEC_700"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:checked="true"
-                android:id="@+id/allChip"
-                />
+                android:checked="true" />
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="today"
-                android:textSize="18dp"
+                android:text="@string/today"
+                android:textSize="18sp"
                 app:checkedIcon="@drawable/dot"
                 android:textColor="@color/black"
                 android:checkable="true"
-                app:checkedIconTint="@color/SEC_700"
-                android:id="@+id/todayChip"
-                />
+                app:checkedIconTint="@color/SEC_700" />
 
 
         </com.google.android.material.chip.ChipGroup>
@@ -69,7 +65,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -77,5 +73,5 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
         app:srcCompat="@drawable/add"
         android:foregroundTint="#616161"
-        android:contentDescription="fab" />
+        android:contentDescription="@string/floating_action_button_content_description" />
 </RelativeLayout>

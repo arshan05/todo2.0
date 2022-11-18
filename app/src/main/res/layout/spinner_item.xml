@@ -22,7 +22,6 @@
         android:textSize="24sp"
         android:padding="10dp"
         android:id="@+id/spinnerItem"
-        android:text="work"
         android:layout_weight="1"
         android:textColor="@color/black"
         android:gravity="center"

@@ -2,13 +2,10 @@ package com.example.projecttodo
 
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.InputFilter
 import android.text.InputType
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -16,12 +13,8 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.LinearLayout.HORIZONTAL
-import android.widget.LinearLayout.VERTICAL
 import androidx.core.animation.doOnEnd
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import androidx.fragment.app.Fragment
 
 class TimerFragment : Fragment() {
     var start = 1500000L
@@ -49,8 +42,8 @@ class TimerFragment : Fragment() {
 //        secondText.filters = arrayOf(InputFilterMinMax(0,60))
 
 
-        view.findViewById<TextView>(R.id.timerText).setOnLongClickListener(){
-            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(view.context)
+        view.findViewById<TextView>(R.id.timerText).setOnLongClickListener{
+            val builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
             builder.setTitle("Set Timer")
 
             val linearLayout = LinearLayout(view.context)
@@ -164,10 +157,10 @@ class TimerFragment : Fragment() {
 
 
     private fun setTextTimer(){
-        var minute = (timer / 1000) / 60
-        var second = (timer / 1000) % 60
+        val minute = (timer / 1000) / 60
+        val second = (timer / 1000) % 60
 
-        var format = String.format("%02d:%02d", minute, second)
+        val format = String.format("%02d:%02d", minute, second)
 
         view?.findViewById<TextView>(R.id.timerText)?.setText(format)
     }
@@ -199,10 +192,4 @@ class TimerFragment : Fragment() {
 //
 //    }
 
-    companion object {
-        @JvmStatic
-        fun newInstance():TimerFragment {
-            return TimerFragment()
-        }
-    }
 }

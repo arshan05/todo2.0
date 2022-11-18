@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/SEC_700"
-                android:text="todo"
+                android:text="@string/app_name"
                 android:textAlignment="center"
                 android:layout_gravity="center"
                 android:textStyle="bold"
