@@ -87,6 +87,7 @@ class ProfileFragment : Fragment(), OnTagLongPressed {
             addTag.setOnClickListener{
                 if (tagInTag.text.toString().isBlank()){
                     Snackbar.make(view, "Enter Valid Tag", Snackbar.LENGTH_SHORT).show()
+                    tagDialog.dismiss()
                 }
                 else{
                     val inputTagText = tagInTag.text.toString()

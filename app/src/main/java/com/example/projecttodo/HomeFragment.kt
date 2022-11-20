@@ -294,6 +294,7 @@ class HomeFragment : Fragment(), OnItemLongPressed,OnItemChecked {
 
                 if (taskIn.toString().isBlank()){
                     Snackbar.make(view,"Add Valid Task",Snackbar.LENGTH_SHORT).show()
+                    dialog.dismiss()
                 }
                 else{
                     val tagInput = tagSpinner.selectedView.findViewById<TextView>(R.id.spinnerItem).text.toString()

@@ -15,6 +15,7 @@ import android.widget.*
 import android.widget.LinearLayout.HORIZONTAL
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 
 class TimerFragment : Fragment() {
     var start = 1500000L
@@ -72,11 +73,16 @@ class TimerFragment : Fragment() {
             linearLayout.addView(sec)
 
             builder.setPositiveButton("ok"){ dialog, which ->
-                val minIn = min.text
-                val secIn = sec.text
-                start = (Integer.parseInt(minIn.toString())*60*1000 + Integer.parseInt(secIn.toString())*1000).toLong()
-                timer = start
-                setTextTimer()
+                if(min.text.isBlank() || sec.text.isBlank()){
+                    Snackbar.make(view,"Enter Valid Minutes and Seconds", Snackbar.LENGTH_SHORT).show()
+                }
+                else{
+                    val minIn = min.text
+                    val secIn = sec.text
+                    start = (Integer.parseInt(minIn.toString())*60*1000 + Integer.parseInt(secIn.toString())*1000).toLong()
+                    timer = start
+                    setTextTimer()
+                }
             }
                 .setNegativeButton("cancel") { dialog, which ->
                     // Respond to negative button press
